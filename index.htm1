@@ -13,7 +13,612 @@
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-  background: linear-gradient(135deg, #fff7fb, #f3f0ff);
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(135deg, #fff5fa, #f5f1ff);
   color: #333;
   text-align: center;
+}
+
+.container {
+  width: min(94%, 900px);
+  margin: auto;
+  padding: 35px 12px 50px;
+}
+
+h1 {
+  font-size: 34px;
+  margin: 10px 0 8px;
+}
+
+.subtitle {
+  color: #888;
+  margin-bottom: 35px;
+}
+
+.description {
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+button {
+  border: none;
+  background: #333;
+  color: white;
+  padding: 15px 35px;
+  border-radius: 30px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+#game,
+#result {
+  display: none;
+}
+
+.progress {
+  margin: 15px 0 20px;
+  color: #999;
+  font-size: 14px;
+}
+
+.choices {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.card {
+  width: min(42vw, 330px);
+  background: white;
+  border-radius: 25px;
+  padding: 15px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.card:active {
+  transform: scale(0.96);
+}
+
+.face {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #f0edf3, #ddd9e3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 65px;
+}
+
+.name {
+  font-size: 21px;
+  font-weight: bold;
+  margin-top: 13px;
+}
+
+.group {
+  color: #999;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.vs {
+  font-size: 20px;
+  font-weight: bold;
+  color: #888;
+}
+
+.result-title {
+  margin-top: 10px;
+}
+
+.result-subtitle {
+  color: #888;
+  margin-bottom: 25px;
+}
+
+.result-card {
+  background: white;
+  margin: 10px auto;
+  padding: 13px 17px;
+  border-radius: 18px;
+  width: min(94%, 600px);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: left;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+.rank {
+  font-size: 25px;
+  font-weight: bold;
+  width: 42px;
+  text-align: center;
+}
+
+.result-face {
+  width: 55px;
+  height: 55px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #eee, #ddd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+}
+
+.result-name {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.result-group {
+  color: #999;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.restart {
+  margin-top: 25px;
+}
+
+@media (max-width: 600px) {
+
+  .container {
+    padding-top: 25px;
+  }
+
+  h1 {
+    font-size: 29px;
+  }
+
+  .choices {
+    gap: 6px;
+  }
+
+  .card {
+    width: 45%;
+    padding: 10px;
+    border-radius: 20px;
+  }
+
+  .face {
+    font-size: 45px;
+    border-radius: 16px;
+  }
+
+  .name {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .group {
+    font-size: 11px;
+  }
+
+  .vs {
+    font-size: 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>💗 HYBE 好き顔9</h1>
+
+  <p class="subtitle">
+    あなたの好きな顔を選んでね ♡
+  </p>
+
+  <div id="start">
+
+    <p class="description">
+      HYBE所属の男性アーティストから<br>
+      あなたの「好き顔9」を決定します！<br><br>
+      2人のうち、好きな方を選んでね ♡
+    </p>
+
+    <button onclick="startGame()">
+      診断スタート ♡
+    </button>
+
+  </div>
+
+
+  <div id="game">
+
+    <div class="progress">
+      <span id="count">1</span> / 100
+    </div>
+
+    <div class="choices">
+
+      <div class="card" onclick="choose(0)">
+
+        <div class="face" id="faceA">
+          ♡
+        </div>
+
+        <div class="name" id="nameA"></div>
+
+        <div class="group" id="groupA"></div>
+
+      </div>
+
+
+      <div class="vs">
+        VS
+      </div>
+
+
+      <div class="card" onclick="choose(1)">
+
+        <div class="face" id="faceB">
+          ♡
+        </div>
+
+        <div class="name" id="nameB"></div>
+
+        <div class="group" id="groupB"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div id="result">
+
+    <h2 class="result-title">
+      👑 あなたのHYBE好き顔9 👑
+    </h2>
+
+    <p class="result-subtitle">
+      あなたが選んだ結果はこちら！
+    </p>
+
+    <div id="ranking"></div>
+
+    <button class="restart" onclick="location.reload()">
+      もう一度診断する ♡
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   メンバー一覧
+========================= */
+
+const members = [
+
+  /* BTS */
+  {name:"RM", group:"BTS"},
+  {name:"Jin", group:"BTS"},
+  {name:"SUGA", group:"BTS"},
+  {name:"j-hope", group:"BTS"},
+  {name:"Jimin", group:"BTS"},
+  {name:"V", group:"BTS"},
+  {name:"Jung Kook", group:"BTS"},
+
+  /* TXT */
+  {name:"SOOBIN", group:"TXT"},
+  {name:"YEONJUN", group:"TXT"},
+  {name:"BEOMGYU", group:"TXT"},
+  {name:"TAEHYUN", group:"TXT"},
+  {name:"HUENINGKAI", group:"TXT"},
+
+  /* SEVENTEEN */
+  {name:"S.COUPS", group:"SEVENTEEN"},
+  {name:"JEONGHAN", group:"SEVENTEEN"},
+  {name:"JOSHUA", group:"SEVENTEEN"},
+  {name:"JUN", group:"SEVENTEEN"},
+  {name:"HOSHI", group:"SEVENTEEN"},
+  {name:"WONWOO", group:"SEVENTEEN"},
+  {name:"WOOZI", group:"SEVENTEEN"},
+  {name:"THE 8", group:"SEVENTEEN"},
+  {name:"MINGYU", group:"SEVENTEEN"},
+  {name:"DK", group:"SEVENTEEN"},
+  {name:"SEUNGKWAN", group:"SEVENTEEN"},
+  {name:"VERNON", group:"SEVENTEEN"},
+  {name:"DINO", group:"SEVENTEEN"},
+
+  /* ENHYPEN */
+  {name:"JUNGWON", group:"ENHYPEN"},
+  {name:"JAY", group:"ENHYPEN"},
+  {name:"JAKE", group:"ENHYPEN"},
+  {name:"SUNGHOON", group:"ENHYPEN"},
+  {name:"SUNOO", group:"ENHYPEN"},
+  {name:"NI-KI", group:"ENHYPEN"},
+
+  /* &TEAM */
+  {name:"EJ", group:"&TEAM"},
+  {name:"FUMA", group:"&TEAM"},
+  {name:"K", group:"&TEAM"},
+  {name:"NICHOLAS", group:"&TEAM"},
+  {name:"YUMA", group:"&TEAM"},
+  {name:"JO", group:"&TEAM"},
+  {name:"HARUA", group:"&TEAM"},
+  {name:"TAKI", group:"&TEAM"},
+  {name:"MAKI", group:"&TEAM"},
+
+  /* BOYNEXTDOOR */
+  {name:"SUNGHO", group:"BOYNEXTDOOR"},
+  {name:"RIWOO", group:"BOYNEXTDOOR"},
+  {name:"JAEHYUN", group:"BOYNEXTDOOR"},
+  {name:"TAESAN", group:"BOYNEXTDOOR"},
+  {name:"LEEHAN", group:"BOYNEXTDOOR"},
+  {name:"WOONHAK", group:"BOYNEXTDOOR"},
+
+  /* TWS */
+  {name:"SHINYU", group:"TWS"},
+  {name:"DOHOON", group:"TWS"},
+  {name:"YOUNGJAE", group:"TWS"},
+  {name:"HANJIN", group:"TWS"},
+  {name:"JIHOON", group:"TWS"},
+  {name:"KYUNGMIN", group:"TWS"},
+
+  /* aoen */
+  {name:"YUJU", group:"aoen"},
+  {name:"RUKA", group:"aoen"},
+  {name:"GAKU", group:"aoen"},
+  {name:"HIKARU", group:"aoen"},
+  {name:"SOTA", group:"aoen"},
+  {name:"KYOSUKE", group:"aoen"},
+  {name:"REO", group:"aoen"},
+
+  /* CORTIS */
+  {name:"MARTIN", group:"CORTIS"},
+  {name:"JAMES", group:"CORTIS"},
+  {name:"JUHOON", group:"CORTIS"},
+  {name:"SEONGHYEON", group:"CORTIS"},
+  {name:"KEONHO", group:"CORTIS"},
+
+  /* SANTOS BRAVOS */
+  {name:"Alejandro Aramburú", group:"SANTOS BRAVOS"},
+  {name:"Drew Venegas", group:"SANTOS BRAVOS"},
+  {name:"Gabi Bermúdez", group:"SANTOS BRAVOS"},
+  {name:"Kauê Penna", group:"SANTOS BRAVOS"},
+  {name:"Kenneth Lavíll", group:"SANTOS BRAVOS"},
+
+  /* EVAN */
+  {name:"EVAN", group:"EVAN"}
+
+];
+
+
+/* =========================
+   診断システム
+========================= */
+
+let ratings = {};
+let currentA;
+let currentB;
+let count = 0;
+
+const TOTAL_MATCHES = 100;
+const K = 32;
+
+
+/* 全員の初期レート */
+
+members.forEach(member => {
+  ratings[member.name] = 1000;
+});
+
+
+/* ランダムにメンバーを選ぶ */
+
+function randomMember() {
+
+  return members[
+    Math.floor(Math.random() * members.length)
+  ];
+
+}
+
+
+/* 次の対戦 */
+
+function showMatch() {
+
+  currentA = randomMember();
+  currentB = randomMember();
+
+  while (currentA.name === currentB.name) {
+    currentB = randomMember();
+  }
+
+
+  document.getElementById("nameA").textContent =
+    currentA.name;
+
+  document.getElementById("groupA").textContent =
+    currentA.group;
+
+
+  document.getElementById("nameB").textContent =
+    currentB.name;
+
+  document.getElementById("groupB").textContent =
+    currentB.group;
+
+
+  document.getElementById("faceA").textContent = "♡";
+  document.getElementById("faceB").textContent = "♡";
+
+
+  document.getElementById("count").textContent =
+    count + 1;
+
+}
+
+
+/* 選択されたとき */
+
+function choose(winner) {
+
+  const A = ratings[currentA.name];
+  const B = ratings[currentB.name];
+
+
+  /* Eloの期待勝率 */
+
+  const expectedA =
+    1 / (1 + Math.pow(10, (B - A) / 400));
+
+  const expectedB =
+    1 - expectedA;
+
+
+  /* 勝者 */
+
+  const actualA =
+    winner === 0 ? 1 : 0;
+
+  const actualB =
+    winner === 1 ? 1 : 0;
+
+
+  /* レート更新 */
+
+  ratings[currentA.name] =
+    A + K * (actualA - expectedA);
+
+  ratings[currentB.name] =
+    B + K * (actualB - expectedB);
+
+
+  count++;
+
+
+  /* 100回終了 */
+
+  if (count >= TOTAL_MATCHES) {
+
+    showResult();
+
+  } else {
+
+    showMatch();
+
+  }
+
+}
+
+
+/* 診断スタート */
+
+function startGame() {
+
+  document.getElementById("start").style.display =
+    "none";
+
+  document.getElementById("game").style.display =
+    "block";
+
+
+  count = 0;
+
+
+  members.forEach(member => {
+    ratings[member.name] = 1000;
+  });
+
+
+  showMatch();
+
+}
+
+
+/* 結果表示 */
+
+function showResult() {
+
+  document.getElementById("game").style.display =
+    "none";
+
+  document.getElementById("result").style.display =
+    "block";
+
+
+  const ranking =
+    members
+      .slice()
+      .sort(
+        (a,b) =>
+          ratings[b.name] - ratings[a.name]
+      )
+      .slice(0, 9);
+
+
+  const rankingBox =
+    document.getElementById("ranking");
+
+
+  rankingBox.innerHTML = "";
+
+
+  ranking.forEach((member, index) => {
+
+    const div =
+      document.createElement("div");
+
+
+    div.className =
+      "result-card";
+
+
+    div.innerHTML = `
+
+      <div class="rank">
+        ${index + 1}
+      </div>
+
+      <div class="result-face">
+        ♡
+      </div>
+
+      <div>
+
+        <div class="result-name">
+          ${member.name}
+        </div>
+
+        <div class="result-group">
+          ${member.group}
+        </div>
+
+      </div>
+
+    `;
+
+
+    rankingBox.appendChild(div);
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
